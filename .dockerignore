@@ -1,0 +1,7 @@
+.git/
+.dockerignore
+.gitignore
+Dockerfile
+lambda.py
+LICENSE.md
+README.md
