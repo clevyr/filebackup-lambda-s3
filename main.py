@@ -21,13 +21,15 @@ def exit(error=None):
 
 def main():
     try:
-        filename = "/tmp/backup-{}.tgz".format(
+        filename = "/tmp/backup-fileassets-{}.tgz".format(
             strftime("%Y-%m-%d_%H%M%S", gmtime()))
 
         print("Creating {}".format(filename))
         with tarfile.open("{}".format(filename), "w:gz") as tar:
-            tar.add(environ.get('IN_FOLDER'), arcname=path.basename(environ.get('IN_FOLDER')))
+            tar.add(environ.get('IN_FOLDER'),
+                    arcname=path.basename(environ.get('IN_FOLDER')))
 
+        bucket_name = environ.get('BUCKET_NAME')
         if bucket_name is not None:
             s3.Bucket(bucket_name).upload_file(
                 filename, path.basename(filename))
